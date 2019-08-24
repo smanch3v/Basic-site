@@ -1,3 +1,8 @@
+<html>
+    <head>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+    </head>
+</html>
 <?php
 
 $title = "Contacts";
@@ -22,7 +27,9 @@ if(isset($_POST['submit'])){
 
 
 $content =
-'<div class="form-style-8">
+'
+
+<div class="form-style-8">
     <h2>Leave us a message!</h2>
     <form>
         <input type="text" name="first_name" placeholder="First Name" />
@@ -30,8 +37,10 @@ $content =
         <input type="email" name="email" placeholder="Email" />
         <textarea placeholder="Message" name="message" onkeyup="adjust_textarea(this)"></textarea>
         <input type="button" value="Send Message" />
+        <div class="g-recaptcha" data-sitekey="6Lcic7MUAAAAAFO00z38OuNBOj3vJTRmHfeDD7AQ"></div>
     </form>
 </div>';
 
 include 'template.php';
 ?>
+

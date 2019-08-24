@@ -1,0 +1,60 @@
+<?php
+
+
+//site key 6Lcic7MUAAAAAFO00z38OuNBOj3vJTRmHfeDD7AQ
+//secret key 6Lcic7MUAAAAACbnt5JXnb2_-Eyjv8zWG2pBEqMV
+
+
+<?php
+ 
+class GoogleRecaptcha 
+{
+    /* Google recaptcha API url */
+    private $google_url = "https://www.google.com/recaptcha/api/siteverify";
+    private $secret = 'YOUR_SECRET_KEY';
+ 
+    public function VerifyCaptcha($response)
+    {
+        $url = $this->google_url."?secret=".$this->secret.
+               "&response=".$response;
+ 
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, TRUE); 
+        $curlData = curl_exec($curl);
+ 
+        curl_close($curl);
+ 
+        $res = json_decode($curlData, TRUE);
+        if($res['success'] == 'true') 
+            return TRUE;
+        else
+            return FALSE;
+    }
+ 
+}
+ 
+$message = 'Google reCaptcha';
+ 
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    $response = $_POST['g-recaptcha-response'];
+ 
+    if(!empty($response))
+    {
+          $cap = new GoogleRecaptcha();
+          $verified = $cap->VerifyCaptcha($response);
+ 
+          if($verified) {
+            $message = "Captcha Success!";
+          } else {
+            $message = "Please reenter captcha";
+          }
+    }
+}
+ 
+ 
+?>
