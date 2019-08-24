@@ -1,11 +1,4 @@
 <?php
-
-
-//site key 6Lcic7MUAAAAAFO00z38OuNBOj3vJTRmHfeDD7AQ
-//secret key 6Lcic7MUAAAAACbnt5JXnb2_-Eyjv8zWG2pBEqMV
-
-
-<?php
  
 class GoogleRecaptcha 
 {
